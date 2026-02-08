@@ -7,6 +7,7 @@ WEBHOOK_URL = "https://discord.com/api/webhooks/1470177389588906317/uh5sXiYbEfHC
 
 NORMAL_AMOUNTS = [2000, 5000, 1500, 8000, 500, 250, 9000, 3000, 1100, 1300]
 RARE_AMOUNTS = [14000, 11000, 9500, 16000]
+WAITTIME = [20,150,500,600,1100,1500,4000]
 
 END_TIME = time.time() + (2 * 60 * 60)  # 2 hours
 
@@ -34,7 +35,7 @@ while time.time() < END_TIME:
                 "title": "Transaction Completed!",
                 "color": 458687,
                 "description": (
-                    f"Brick Amount: `{amount}` (remained anonymous)\n\n"
+                    f"Brick Amount (abbreviated for anonymity): `{amount}`\n\n"
                     "Sender: `Anonymous`\n"
                     "Receiver: `Anonymous`\n\n"
                     f"Currency Paid: `{currency}`"
