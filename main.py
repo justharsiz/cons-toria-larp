@@ -53,5 +53,5 @@ while time.time() < END_TIME:
         flush=True
     )
 
-    sleep_time = random.randint(30, 240)
+    sleep_time = random.choice(WAITTIME)
     time.sleep(sleep_time)
