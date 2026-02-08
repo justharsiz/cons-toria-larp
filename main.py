@@ -10,12 +10,23 @@ RARE_AMOUNTS = [14000, 11000, 9500, 16000]
 
 END_TIME = time.time() + (2 * 60 * 60)  # 2 hours
 
+def get_random_currency():
+    rand = random.random()
+    if rand < 0.80:
+        return "LTC"
+    elif rand < 0.90:
+        return "BTC"
+    else:
+        return "USDT"
+
 while time.time() < END_TIME:
     # 4% chance for rare amount
     if random.random() < 0.04:
         amount = random.choice(RARE_AMOUNTS)
     else:
         amount = random.choice(NORMAL_AMOUNTS)
+
+    currency = get_random_currency()
 
     payload = {
         "embeds": [
@@ -26,7 +37,7 @@ while time.time() < END_TIME:
                     f"Brick Amount: `{amount}` (remained anonymous)\n\n"
                     "Sender: `Anonymous`\n"
                     "Receiver: `Anonymous`\n\n"
-                    "Currency Paid: `LTC`"
+                    f"Currency Paid: `{currency}`"
                 )
             }
         ],
@@ -37,7 +48,7 @@ while time.time() < END_TIME:
 
     print(
         f"[{datetime.datetime.utcnow().isoformat()}] "
-        f"Sent amount={amount} status={r.status_code}",
+        f"Sent amount={amount} currency={currency} status={r.status_code}",
         flush=True
     )
 
