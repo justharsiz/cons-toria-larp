@@ -1,0 +1,45 @@
+import time
+import random
+import requests
+import datetime
+
+WEBHOOK_URL = "https://discord.com/api/webhooks/1470177389588906317/uh5sXiYbEfHC8_-GAFvO4_pc6dmXOcFoFp9hdgSS0IkFaN1hAelS0yNVX2iCTxv_JUE2"
+
+NORMAL_AMOUNTS = [2000, 5000, 1500, 8000, 500, 250, 9000, 3000, 1100, 1300]
+RARE_AMOUNTS = [14000, 11000, 9500, 16000]
+
+END_TIME = time.time() + (2 * 60 * 60)  # 2 hours
+
+while time.time() < END_TIME:
+    # 4% chance for rare amount
+    if random.random() < 0.04:
+        amount = random.choice(RARE_AMOUNTS)
+    else:
+        amount = random.choice(NORMAL_AMOUNTS)
+
+    payload = {
+        "embeds": [
+            {
+                "title": "Transaction Completed!",
+                "color": 458687,
+                "description": (
+                    f"Brick Amount: `{amount}` (remained anonymous)\n\n"
+                    "Sender: `Anonymous`\n"
+                    "Receiver: `Anonymous`\n\n"
+                    "Currency Paid: `LTC`"
+                )
+            }
+        ],
+        "components": []
+    }
+
+    r = requests.post(WEBHOOK_URL, json=payload, timeout=10)
+
+    print(
+        f"[{datetime.datetime.utcnow().isoformat()}] "
+        f"Sent amount={amount} status={r.status_code}",
+        flush=True
+    )
+
+    sleep_time = random.randint(30, 240)
+    time.sleep(sleep_time)
